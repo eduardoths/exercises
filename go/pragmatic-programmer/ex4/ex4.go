@@ -32,14 +32,16 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 		var args *int
 
 		commandRune := code[0]
-		if commandRune == 'D' {
-			command = DOWN_COMMAND
-		} else if commandRune == 'W' {
+		commandMap := map[byte]Command{
+			'D': DOWN_COMMAND,
+			'W': WEST_COMMAND,
+			'U': UP_COMMAND,
+		}
+		command = commandMap[commandRune]
+		if commandRune == 'W' {
 			one := 1
 			args = &one
 			command = WEST_COMMAND
-		} else {
-			command = UP_COMMAND
 		}
 		commands = append(commands, TurtleCommand{command, args})
 	}
