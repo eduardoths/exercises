@@ -1,11 +1,11 @@
 package ex4_test
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/eduardoths/exercises/go/pragmatic-programmer/ex4"
 	"github.com/openlyinc/pointy"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTurtleParse(t *testing.T) {
@@ -132,14 +132,8 @@ func TestTurtleParse(t *testing.T) {
 	for desc, tc := range testCases {
 		t.Run(desc, func(t *testing.T) {
 			gotCommands, gotErr := ex4.TurtleParse(tc.args.s)
-			if !reflect.DeepEqual(tc.want.commands, gotCommands) {
-				t.Errorf("wanted comand %v, got %v", tc.want.commands, gotCommands)
-			}
-
-			if tc.want.err != gotErr {
-				t.Errorf("wanted err %s, got %s", tc.want.err, gotErr)
-			}
-
+			assert.Equal(t, tc.want.commands, gotCommands)
+			assert.Equal(t, tc.want.err, gotErr)
 		})
 	}
 }
