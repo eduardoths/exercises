@@ -39,6 +39,7 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 			'D': DOWN_COMMAND,
 			'W': WEST_COMMAND,
 			'U': UP_COMMAND,
+			'E': EAST_COMMAND,
 		}
 		command = commandMap[commandChar]
 		argStr := strings.TrimSpace(codeString[1:])
