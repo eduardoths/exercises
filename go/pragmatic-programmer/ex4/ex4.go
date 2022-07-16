@@ -23,17 +23,18 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	lines := strings.Split(s, "\n")
 	for _, line := range lines {
 		commandAndComment := strings.Split(line, "#")
-		line = strings.TrimSpace(commandAndComment[0])
-		if line == "" {
+		code := strings.TrimSpace(commandAndComment[0])
+		if code == "" {
 			continue
 		}
 
 		var command Command
 		var args *int
 
-		if line == "D" {
+		commandRune := code[0]
+		if commandRune == 'D' {
 			command = DOWN_COMMAND
-		} else if line[0] == 'W' {
+		} else if commandRune == 'W' {
 			one := 1
 			args = &one
 			command = WEST_COMMAND
