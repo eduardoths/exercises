@@ -39,7 +39,7 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	}
 
 	for _, turtleCommand := range commands {
-		if turtleCommand.Command == DOWN_COMMAND {
+		if turtleCommand.Command == DOWN_COMMAND || turtleCommand.Command == UP_COMMAND {
 			if turtleCommand.Args != nil {
 				return nil, errors.New("syntax_error:invalid argument")
 			}
