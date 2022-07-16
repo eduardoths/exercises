@@ -36,8 +36,7 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 
 func turtleParseLine(line string) (*TurtleCommand, error) {
 	line = strings.TrimSpace(line)
-	commandAndComment := strings.Split(line, "#")
-	codeString := strings.TrimSpace(commandAndComment[0])
+	codeString := strings.TrimSpace(removeComments(line))
 	if codeString == "" {
 		return nil, nil
 	}
@@ -61,4 +60,9 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 		args = &argInt
 	}
 	return &TurtleCommand{command, args}, nil
+}
+
+func removeComments(s string) string {
+	commandAndComment := strings.Split(s, "#")
+	return commandAndComment[0]
 }
