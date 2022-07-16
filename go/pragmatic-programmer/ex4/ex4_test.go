@@ -94,7 +94,7 @@ func TestTurtleParse(t *testing.T) {
 			args: args{s: "W 1"},
 			want: want{
 				commands: []ex4.TurtleCommand{
-					{ex4.WEST_COMMAND, pointy.Int(1)},
+					{ex4.WEST_COMMAND, pointy.Float64(1)},
 				},
 				err: nil,
 			},
@@ -103,7 +103,16 @@ func TestTurtleParse(t *testing.T) {
 			args: args{s: "W 2"},
 			want: want{
 				commands: []ex4.TurtleCommand{
-					{ex4.WEST_COMMAND, pointy.Int(2)},
+					{ex4.WEST_COMMAND, pointy.Float64(2)},
+				},
+				err: nil,
+			},
+		},
+		"it should move to the east by 1.3": {
+			args: args{s: "W 1.3"},
+			want: want{
+				commands: []ex4.TurtleCommand{
+					{ex4.WEST_COMMAND, pointy.Float64(1.3)},
 				},
 				err: nil,
 			},

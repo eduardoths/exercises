@@ -18,7 +18,7 @@ const (
 
 type TurtleCommand struct {
 	Command Command
-	Args    *int
+	Args    *float64
 }
 
 func TurtleParse(s string) ([]TurtleCommand, error) {
@@ -32,7 +32,7 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 		}
 
 		var command Command
-		var args *int
+		var args *float64
 
 		commandChar := codeString[0]
 		commandMap := map[byte]Command{
@@ -43,7 +43,7 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 		command = commandMap[commandChar]
 		argStr := strings.TrimSpace(codeString[1:])
 		if argStr != "" {
-			argInt, _ := strconv.Atoi(argStr)
+			argInt, _ := strconv.ParseFloat(argStr, 64)
 			args = &argInt
 		}
 
