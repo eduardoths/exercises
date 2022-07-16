@@ -136,6 +136,15 @@ func TestTurtleParse(t *testing.T) {
 				err: nil,
 			},
 		},
+		"it should move to north by 10": {
+			args: args{s: "N 10"},
+			want: want{
+				commands: []ex4.TurtleCommand{
+					{ex4.NORTH_COMMAND, pointy.Float64(10)},
+				},
+				err: nil,
+			},
+		},
 	}
 
 	for desc, tc := range testCases {
