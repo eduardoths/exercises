@@ -41,19 +41,10 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 		return nil, nil
 	}
 
-	var command Command
 	var args *float64
 
-	commandChar := codeString[0]
-	commandMap := map[byte]Command{
-		'D': DOWN_COMMAND,
-		'W': WEST_COMMAND,
-		'U': UP_COMMAND,
-		'E': EAST_COMMAND,
-		'N': NORTH_COMMAND,
-		'S': SOUTH_COMMAND,
-	}
-	command = commandMap[commandChar]
+	command, _ := parseCommand(codeString)
+
 	argStr := strings.TrimSpace(codeString[1:])
 	if argStr != "" {
 		argInt, _ := strconv.ParseFloat(argStr, 64)
@@ -65,4 +56,18 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 func removeComments(s string) string {
 	commandAndComment := strings.Split(s, "#")
 	return commandAndComment[0]
+}
+
+func parseCommand(s string) (Command, error) {
+	s = strings.TrimSpace(s)
+	commandChar := s[0]
+	commandMap := map[byte]Command{
+		'D': DOWN_COMMAND,
+		'W': WEST_COMMAND,
+		'U': UP_COMMAND,
+		'E': EAST_COMMAND,
+		'N': NORTH_COMMAND,
+		'S': SOUTH_COMMAND,
+	}
+	return commandMap[commandChar], nil
 }
