@@ -1,7 +1,7 @@
 package ex4
 
 import (
-	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -74,7 +74,7 @@ func parseCommand(s string) (Command, error) {
 	}
 	command, ok := commandMap[commandChar]
 	if !ok {
-		return command, errors.New("syntax_error:invalid command 'T'")
+		return command, fmt.Errorf("syntax_error:invalid command '%s'", string(commandChar))
 	}
 
 	return commandMap[commandChar], nil

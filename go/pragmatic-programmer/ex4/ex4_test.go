@@ -169,6 +169,13 @@ func TestTurtleParse(t *testing.T) {
 				err:      errors.New("syntax_error:invalid command 'T'"),
 			},
 		},
+		"it should return error if with invalid command": {
+			args: args{s: "A"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:invalid command 'A'"),
+			},
+		},
 	}
 
 	for desc, tc := range testCases {
