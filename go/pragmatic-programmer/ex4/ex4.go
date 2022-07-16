@@ -23,6 +23,23 @@ type TurtleCommand struct {
 	Args    *float64
 }
 
+func (tc TurtleCommand) IsValid() bool {
+	if tc.Command == DOWN_COMMAND || tc.Command == UP_COMMAND {
+		if tc.Args != nil {
+			return false
+		}
+	}
+	if tc.Command == NORTH_COMMAND ||
+		tc.Command == SOUTH_COMMAND ||
+		tc.Command == EAST_COMMAND ||
+		tc.Command == WEST_COMMAND {
+		if tc.Args == nil {
+			return false
+		}
+	}
+	return true
+}
+
 func TurtleParse(s string) ([]TurtleCommand, error) {
 	commands := []TurtleCommand{}
 	lines := strings.Split(s, "\n")
@@ -39,18 +56,8 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	}
 
 	for _, turtleCommand := range commands {
-		if turtleCommand.Command == DOWN_COMMAND || turtleCommand.Command == UP_COMMAND {
-			if turtleCommand.Args != nil {
-				return nil, errors.New("syntax_error:invalid arguments")
-			}
-		}
-		if turtleCommand.Command == NORTH_COMMAND ||
-			turtleCommand.Command == SOUTH_COMMAND ||
-			turtleCommand.Command == EAST_COMMAND ||
-			turtleCommand.Command == WEST_COMMAND {
-			if turtleCommand.Args == nil {
-				return nil, errors.New("syntax_error:invalid arguments")
-			}
+		if isValid := turtleCommand.IsValid(); !isValid {
+			return nil, errors.New("syntax_error:invalid arguments")
 		}
 	}
 
