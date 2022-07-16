@@ -46,7 +46,8 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 		}
 		if turtleCommand.Command == NORTH_COMMAND ||
 			turtleCommand.Command == SOUTH_COMMAND ||
-			turtleCommand.Command == EAST_COMMAND {
+			turtleCommand.Command == EAST_COMMAND ||
+			turtleCommand.Command == WEST_COMMAND {
 			if turtleCommand.Args == nil {
 				return nil, errors.New("syntax_error:invalid arguments")
 			}

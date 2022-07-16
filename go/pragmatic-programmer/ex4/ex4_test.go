@@ -227,6 +227,13 @@ func TestTurtleParse(t *testing.T) {
 				err:      errors.New("syntax_error:invalid arguments"),
 			},
 		},
+		"it should return error if move west has no argument": {
+			args: args{s: "W"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:invalid arguments"),
+			},
+		},
 	}
 
 	for desc, tc := range testCases {
