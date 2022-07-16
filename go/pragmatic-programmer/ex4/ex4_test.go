@@ -185,6 +185,13 @@ func TestTurtleParse(t *testing.T) {
 				err:      errors.New("syntax_error:invalid command 'A'"),
 			},
 		},
+		"it should return error if argument is not a float64 number": {
+			args: args{s: "N 1.64batata"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:could not parse arguments"),
+			},
+		},
 	}
 
 	for desc, tc := range testCases {

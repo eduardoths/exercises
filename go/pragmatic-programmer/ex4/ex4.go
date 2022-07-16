@@ -1,6 +1,7 @@
 package ex4
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -51,7 +52,10 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 		return nil, err
 	}
 
-	args, _ := parseArgument(codeString)
+	args, err := parseArgument(codeString)
+	if err != nil {
+		return nil, err
+	}
 
 	return &TurtleCommand{command, args}, nil
 }
@@ -85,7 +89,10 @@ func parseArgument(s string) (*float64, error) {
 	s = strings.TrimSpace(s)
 	argStr := strings.TrimSpace(s[1:])
 	if argStr != "" {
-		argFloat, _ := strconv.ParseFloat(argStr, 64)
+		argFloat, err := strconv.ParseFloat(argStr, 64)
+		if err != nil {
+			return nil, errors.New("syntax_error:could not parse arguments")
+		}
 		return &argFloat, nil
 	}
 
