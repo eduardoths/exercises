@@ -24,20 +24,16 @@ type TurtleCommand struct {
 }
 
 func (tc TurtleCommand) IsValid() bool {
-	if tc.Command == DOWN_COMMAND || tc.Command == UP_COMMAND {
-		if tc.Args != nil {
-			return false
-		}
+	var commandHasArgs = map[Command]bool{
+		DOWN_COMMAND:  false,
+		UP_COMMAND:    false,
+		NORTH_COMMAND: true,
+		SOUTH_COMMAND: true,
+		EAST_COMMAND:  true,
+		WEST_COMMAND:  true,
 	}
-	if tc.Command == NORTH_COMMAND ||
-		tc.Command == SOUTH_COMMAND ||
-		tc.Command == EAST_COMMAND ||
-		tc.Command == WEST_COMMAND {
-		if tc.Args == nil {
-			return false
-		}
-	}
-	return true
+
+	return commandHasArgs[tc.Command] == (tc.Args != nil)
 }
 
 func TurtleParse(s string) ([]TurtleCommand, error) {
