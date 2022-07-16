@@ -28,14 +28,19 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 			continue
 		}
 
+		var command Command
+		var args *int
+
 		if line == "D" {
-			commands = append(commands, TurtleCommand{DOWN_COMMAND, nil})
+			command = DOWN_COMMAND
 		} else if line[0] == 'W' {
 			one := 1
-			commands = append(commands, TurtleCommand{WEST_COMMAND, &one})
+			args = &one
+			command = WEST_COMMAND
 		} else {
-			commands = append(commands, TurtleCommand{UP_COMMAND, nil})
+			command = UP_COMMAND
 		}
+		commands = append(commands, TurtleCommand{command, args})
 	}
 
 	return commands, nil
