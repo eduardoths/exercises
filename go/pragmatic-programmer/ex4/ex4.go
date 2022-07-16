@@ -41,15 +41,9 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 		return nil, nil
 	}
 
-	var args *float64
-
 	command, _ := parseCommand(codeString)
+	args, _ := parseArgument(codeString)
 
-	argStr := strings.TrimSpace(codeString[1:])
-	if argStr != "" {
-		argInt, _ := strconv.ParseFloat(argStr, 64)
-		args = &argInt
-	}
 	return &TurtleCommand{command, args}, nil
 }
 
@@ -70,4 +64,15 @@ func parseCommand(s string) (Command, error) {
 		'S': SOUTH_COMMAND,
 	}
 	return commandMap[commandChar], nil
+}
+
+func parseArgument(s string) (*float64, error) {
+	s = strings.TrimSpace(s)
+	argStr := strings.TrimSpace(s[1:])
+	if argStr != "" {
+		argFloat, _ := strconv.ParseFloat(argStr, 64)
+		return &argFloat, nil
+	}
+
+	return nil, nil
 }
