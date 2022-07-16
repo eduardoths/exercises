@@ -15,7 +15,7 @@ const (
 
 type TurtleCommand struct {
 	Command Command
-	Args    *[]interface{}
+	Args    *int
 }
 
 func TurtleParse(s string) ([]TurtleCommand, error) {
@@ -30,6 +30,9 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 
 		if line == "D" {
 			commands = append(commands, TurtleCommand{DOWN_COMMAND, nil})
+		} else if line[0] == 'W' {
+			one := 1
+			commands = append(commands, TurtleCommand{WEST_COMMAND, &one})
 		} else {
 			commands = append(commands, TurtleCommand{UP_COMMAND, nil})
 		}

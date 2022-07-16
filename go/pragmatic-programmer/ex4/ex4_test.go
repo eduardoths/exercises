@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/eduardoths/exercises/go/pragmatic-programmer/ex4"
+	"github.com/openlyinc/pointy"
 )
 
 func TestTurtleParse(t *testing.T) {
@@ -85,6 +86,15 @@ func TestTurtleParse(t *testing.T) {
 					{ex4.DOWN_COMMAND, nil},
 					{ex4.DOWN_COMMAND, nil},
 					{ex4.UP_COMMAND, nil},
+				},
+				err: nil,
+			},
+		},
+		"it should move to the west by 1": {
+			args: args{s: "W 1"},
+			want: want{
+				commands: []ex4.TurtleCommand{
+					{ex4.WEST_COMMAND, pointy.Int(1)},
 				},
 				err: nil,
 			},
