@@ -1,6 +1,7 @@
 package ex4_test
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/eduardoths/exercises/go/pragmatic-programmer/ex4"
@@ -152,6 +153,13 @@ func TestTurtleParse(t *testing.T) {
 					{ex4.SOUTH_COMMAND, pointy.Float64(5.3)},
 				},
 				err: nil,
+			},
+		},
+		"it should return error if command is invalid": {
+			args: args{s: "Test"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:invalid command 'T'"),
 			},
 		},
 	}

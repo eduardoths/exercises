@@ -1,6 +1,7 @@
 package ex4
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 )
@@ -25,7 +26,11 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	commands := []TurtleCommand{}
 	lines := strings.Split(s, "\n")
 	for _, line := range lines {
-		turtleCommand, _ := turtleParseLine(line)
+		turtleCommand, err := turtleParseLine(line)
+		if err != nil {
+			return nil, err
+		}
+
 		if turtleCommand != nil {
 			commands = append(commands, *turtleCommand)
 		}
@@ -41,7 +46,11 @@ func turtleParseLine(line string) (*TurtleCommand, error) {
 		return nil, nil
 	}
 
-	command, _ := parseCommand(codeString)
+	command, err := parseCommand(codeString)
+	if err != nil {
+		return nil, err
+	}
+
 	args, _ := parseArgument(codeString)
 
 	return &TurtleCommand{command, args}, nil
@@ -63,6 +72,11 @@ func parseCommand(s string) (Command, error) {
 		'N': NORTH_COMMAND,
 		'S': SOUTH_COMMAND,
 	}
+	command, ok := commandMap[commandChar]
+	if !ok {
+		return command, errors.New("syntax_error:invalid command 'T'")
+	}
+
 	return commandMap[commandChar], nil
 }
 
