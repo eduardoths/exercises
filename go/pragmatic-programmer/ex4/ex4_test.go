@@ -34,6 +34,15 @@ func TestTurtleParse(t *testing.T) {
 				err: nil,
 			},
 		},
+		"it should case insensitive": {
+			args: args{s: "d"},
+			want: want{
+				commands: []ex4.TurtleCommand{
+					{ex4.DOWN_COMMAND, nil},
+				},
+				err: nil,
+			},
+		},
 		"it should return a command to set the pen up": {
 			args: args{s: "U"},
 			want: want{

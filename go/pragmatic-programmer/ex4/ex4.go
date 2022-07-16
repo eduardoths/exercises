@@ -63,6 +63,7 @@ func removeComments(s string) string {
 
 func parseCommand(s string) (Command, error) {
 	s = strings.TrimSpace(s)
+	s = strings.ToUpper(s)
 	commandChar := s[0]
 	commandMap := map[byte]Command{
 		'D': DOWN_COMMAND,
