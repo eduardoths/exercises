@@ -192,6 +192,13 @@ func TestTurtleParse(t *testing.T) {
 				err:      errors.New("syntax_error:could not parse arguments"),
 			},
 		},
+		"it should return error if pen down has argument": {
+			args: args{s: "D 1"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:invalid argument"),
+			},
+		},
 	}
 
 	for desc, tc := range testCases {
