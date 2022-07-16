@@ -1,6 +1,9 @@
 package ex4
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 type Command string
 
@@ -23,26 +26,27 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	lines := strings.Split(s, "\n")
 	for _, line := range lines {
 		commandAndComment := strings.Split(line, "#")
-		code := strings.TrimSpace(commandAndComment[0])
-		if code == "" {
+		codeString := strings.TrimSpace(commandAndComment[0])
+		if codeString == "" {
 			continue
 		}
 
 		var command Command
 		var args *int
 
-		commandChar := code[0]
+		commandChar := codeString[0]
 		commandMap := map[byte]Command{
 			'D': DOWN_COMMAND,
 			'W': WEST_COMMAND,
 			'U': UP_COMMAND,
 		}
 		command = commandMap[commandChar]
-		if commandChar == 'W' {
-			one := 1
-			args = &one
-			command = WEST_COMMAND
+		argStr := strings.TrimSpace(codeString[1:])
+		if argStr != "" {
+			argInt, _ := strconv.Atoi(argStr)
+			args = &argInt
 		}
+
 		commands = append(commands, TurtleCommand{command, args})
 	}
 
