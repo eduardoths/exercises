@@ -196,14 +196,21 @@ func TestTurtleParse(t *testing.T) {
 			args: args{s: "D 1"},
 			want: want{
 				commands: nil,
-				err:      errors.New("syntax_error:invalid argument"),
+				err:      errors.New("syntax_error:invalid arguments"),
 			},
 		},
 		"it should return error if pen up has argument": {
 			args: args{s: "U 0"},
 			want: want{
 				commands: nil,
-				err:      errors.New("syntax_error:invalid argument"),
+				err:      errors.New("syntax_error:invalid arguments"),
+			},
+		},
+		"it should return error if move north has no argument": {
+			args: args{s: "N"},
+			want: want{
+				commands: nil,
+				err:      errors.New("syntax_error:invalid arguments"),
 			},
 		},
 	}
