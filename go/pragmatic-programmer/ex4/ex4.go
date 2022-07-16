@@ -25,33 +25,40 @@ func TurtleParse(s string) ([]TurtleCommand, error) {
 	commands := []TurtleCommand{}
 	lines := strings.Split(s, "\n")
 	for _, line := range lines {
-		commandAndComment := strings.Split(line, "#")
-		codeString := strings.TrimSpace(commandAndComment[0])
-		if codeString == "" {
-			continue
+		turtleCommand, _ := turtleParseLine(line)
+		if turtleCommand != nil {
+			commands = append(commands, *turtleCommand)
 		}
-
-		var command Command
-		var args *float64
-
-		commandChar := codeString[0]
-		commandMap := map[byte]Command{
-			'D': DOWN_COMMAND,
-			'W': WEST_COMMAND,
-			'U': UP_COMMAND,
-			'E': EAST_COMMAND,
-			'N': NORTH_COMMAND,
-			'S': SOUTH_COMMAND,
-		}
-		command = commandMap[commandChar]
-		argStr := strings.TrimSpace(codeString[1:])
-		if argStr != "" {
-			argInt, _ := strconv.ParseFloat(argStr, 64)
-			args = &argInt
-		}
-
-		commands = append(commands, TurtleCommand{command, args})
 	}
 
 	return commands, nil
+}
+
+func turtleParseLine(line string) (*TurtleCommand, error) {
+	line = strings.TrimSpace(line)
+	commandAndComment := strings.Split(line, "#")
+	codeString := strings.TrimSpace(commandAndComment[0])
+	if codeString == "" {
+		return nil, nil
+	}
+
+	var command Command
+	var args *float64
+
+	commandChar := codeString[0]
+	commandMap := map[byte]Command{
+		'D': DOWN_COMMAND,
+		'W': WEST_COMMAND,
+		'U': UP_COMMAND,
+		'E': EAST_COMMAND,
+		'N': NORTH_COMMAND,
+		'S': SOUTH_COMMAND,
+	}
+	command = commandMap[commandChar]
+	argStr := strings.TrimSpace(codeString[1:])
+	if argStr != "" {
+		argInt, _ := strconv.ParseFloat(argStr, 64)
+		args = &argInt
+	}
+	return &TurtleCommand{command, args}, nil
 }
